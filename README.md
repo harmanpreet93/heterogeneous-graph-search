@@ -92,18 +92,18 @@ H. Filtering of directors for resultant movies: **filter_directors.py**
   
 #### Challenge faced: 
 ##### Large computation times    
-In many of the above filtering operations, we needed to compare two files containing a large number of lines. With two such files containing m and n tuples each, the iterative comparison through brute force lead to a time complexity of **O(m*n)**. Since m and n were very large, this was highly inefficient, and the system was unable to handle the computation.    
+In many of the above filtering operations, we needed to compare two files containing a large number of lines. With two such files containing m and n tuples each, the iterative comparison through brute force lead to a time complexity of **_O(m*n)_**. Since m and n were very large, this was highly inefficient, and the system was unable to handle the computation.    
 
 ##### Approach: Increased efficiency using Hashmaps and IO buffers     
-To overcome the above challenge, we used alternative approaches. We iterated over the file containing m tuples and stored the m values in hashmaps. After that, the n tuples in the other file were iterated upon and matched with the values stored in the output. This reduced the problem to **O(m+n)**, greatly increasing the efficiency.      
+To overcome the above challenge, we used alternative approaches. We iterated over the file containing m tuples and stored the m values in hashmaps. After that, the n tuples in the other file were iterated upon and matched with the values stored in the output. This reduced the problem to **_O(m+n)_**, greatly increasing the efficiency.      
 Another approach we chose is to store the input and output buffers instead of reading from and writing to files on the fly. This reduced intermittent IO time and helped increase efficiency. 
 
-**Result**
+**Result**      
 After applying the above progressive filters, we obtained the following stats:
-Number of Movies: 32770
-Number of Actors: 86103
-Number of Actresses: 47143
-Number of Directors: 36248
+Number of Movies: 32770     
+Number of Actors: 86103    
+Number of Actresses: 47143      
+Number of Directors: 36248    
 
 #### C. Data Organisation
 Finally, after filtering the data and structuring it into CSV files, the data was entered into a graph database, so as to visualize the entities and their relationships. The [http://neo4j.com/](Neo4j) database was used for this purpose. Data was entered with the help of the [http://neo4j.com/docs/stable/cypher-query-lang.html](Cypher Query Language) and  the [http://py2neo.org/2.0/](Py2neo-2.0) client library in the following steps:     
