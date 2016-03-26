@@ -28,11 +28,9 @@ For this project, we used a subset of the IMDB database, which was provided for 
 *(#TITLE Genre)*
 
 **_Legend_**:
-*<!xxx/>*:  
-*optional*    
+*<!xxx/>*: *optional*    
 
-*#TITLE*:    
-*name (year) <!(info)/> <!{<!episodeName/><!{episodeNum}/>}/> <!{{SUSPENDED}}/>*     
+*#TITLE*: *name (year) <!(info)/> <!{<!episodeName/><!{episodeNum}/>}/> <!{{SUSPENDED}}/>*     
 
 #### B. Data Filtering
 The next step was to structure and filter the data properly as per the requirements of the project. The list files were used to generate structured CSV files for each of the entities. Each CSV file was obtained after multiple levels of filters applied using python scripts. The filters applied, and the data statistics obtained after each step are described below.
@@ -40,16 +38,17 @@ The next step was to structure and filter the data properly as per the requireme
 ##### 1. Converting list files to CSV files
 The list files were iterated and useful information was extracted to structure the data into CSV files as follows:
 
-  **Movies**: `(title,year,rating,votes)`
-  **Actors**: `(first_name,last_name,movie_title)`
-  **Actresses**: `(first_name,last_name,movie_title)`
-  **Directors**: `(first_name,last_name,movie_title)`
-  **Genres**: `(movie_title,genre)`
-
+  **Movies**: `(title,year,rating,votes)`     
+  **Actors**: `(first_name,last_name,movie_title)`     
+  **Actresses**: `(first_name,last_name,movie_title)`    
+  **Directors**: `(first_name,last_name,movie_title)`    
+  **Genres**: `(movie_title,genre)`    
+  
+  
 ##### 2. Loading csv files into database
 
 ##### Challenge faced:    
-##### Large file sizes      
+##### **Large file sizes**   
 The output CSV files were very large in size and couldn’t be loaded into the Neo4j database using web interface. Each trial resulted in a database disconnection error because too much time went into loading these large files, leading to a timeout or memory error in most cases.    
 
 ##### Approach 1: Splitting the data
@@ -59,41 +58,34 @@ We tried to split the data into multiple small files, and tried to load each fil
 The data needed to be filtered in order to insert into the database so as to use it for phase 2. To collect the stats for the data and filter accordingly. We tried to load subsets of the data into a MySQL database. But again due to large file sizes, we failed to do so.
 
 ##### Approach 3: Manual Filtering
-Finally, we decided to manually filter the data by deciding some factors and thresholds, and wrote scripts in Python to obtain the desired filtered data sets.
+Finally, we decided to manually filter the data by deciding some factors and thresholds, and wrote scripts in Python to obtain the desired filtered data sets.    
 
 **Code Description and Usage**:
 
-A. Removal of movies without rating data: tsv2csv.py
+A. Removal of movies without rating data: tsv2csv.py     
 Usage: `python tsv2csv.py input.csv output.csv`
 
+B. Removal of TV series and video­games by removal of tags (TV), (VG), (V), {}: filter_VG_TV.py,filter_V.py,filter_bracket.py  
+Usage: `python filter_VG_TV.py input.csv output.csv`    
+Usage: `python filter_V.py input.csv output.csv`    
+Usage: `python filter_bracket.py input.csv output.csv`    
 
-B. Removal of TV series and video­games by removal of tags (TV), (VG), (V), {}: filter_VG_TV.py,filter_V.py,filter_bracket.py
-Usage: `python filter_VG_TV.py input.csv output.csv`
-Usage: `python filter_V.py input.csv output.csv`
-Usage: `python filter_bracket.py input.csv output.csv`
+C. Removal of movies released before 2000: filter_year_2000.py    
+Usage: `python filter_year_2000.py input.csv output.csv`    
 
+D. Removal of movies with number of votes<100: filter_number_of_votes.py    
+Usage: `python filter_number_of_votes.py input.csv output.csv   
 
-C. Removal of movies released before 2000: filter_year_2000.py
-Usage: `python filter_year_2000.py input.csv output.csv`
+E. Finding distinct #Actors and #Actresses for filtered movies: distinct_actors.py, distinct_actresses.py    
+Usage: `python distinct_actors.py actors.csv output.csv`    
+Usage: `python distinct_actresses.py actresses.csv output.csv`    
 
-
-D. Removal of movies with number of votes<100: filter_number_of_votes.py
-Usage: `python filter_number_of_votes.py input.csv output.csv`
-
-
-E. Finding distinct #Actors and #Actresses for filtered movies: distinct_actors.py, distinct_actresses.py
-Usage: `python distinct_actors.py actors.csv output.csv`
-Usage: `python distinct_actresses.py actresses.csv output.csv`
-
-
-F. Removal of actors and actresses who acted in only one movie released before 2010: distinct_actors_2010.py, distinct_actresses_2010.py
-Usage: `python distinct_actors_2010.py actors.csv output.csv`
-Usage: `python distinct_actresses_2010.py actresses.csv output.csv`
-
+F. Removal of actors and actresses who acted in only one movie released before 2010: distinct_actors_2010.py, distinct_actresses_2010.py    
+Usage: `python distinct_actors_2010.py actors.csv output.csv`    
+Usage: `python distinct_actresses_2010.py actresses.csv output.csv`    
 
 G. Removal of movies without any associated actors or actresses: find_union_movies.py
 Usage:`'python find_union_movies.py actors.csv actresses.csv`
-
 
 H. Filtering of directors for resultant movies: filter_directors.py
 Usage: `python filter_directors.py movies.csv directors.csv outputFile.csv`
