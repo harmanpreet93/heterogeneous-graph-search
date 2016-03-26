@@ -7,7 +7,7 @@ In this project we aim to implement searching in a heterogeneous graph network. 
 
 #### A. Data Extraction
 
-For this project, we used a subset of the IMDB database, which was provided for use at [http://ftp.fu-berlin.de/pub/misc/movies/database/]. The data was downloaded in the form of list files containing unstructured information about actors, directors, genres, movies. plots, cinematographers, etc. The list files for only actors, actresses, directors,  movies, movie-ratings, and genres were extracted, containing the following data format:
+For this project, we used a subset of the IMDB database, which was provided for use at [http://ftp.fu-berlin.de/pub/misc/movies/database/](http://ftp.fu-berlin.de/pub/misc/movies/database/). The data was downloaded in the form of list files containing unstructured information about actors, directors, genres, movies. plots, cinematographers, etc. The list files for only actors, actresses, directors,  movies, movie-ratings, and genres were extracted, containing the following data format:
 
 **Actors**:
 *(Lastname, Firstname #TITLE <!(detail)/> <!(detail)/> <![role]/> <!<billingPosition>/>)*
@@ -27,9 +27,8 @@ For this project, we used a subset of the IMDB database, which was provided for 
 **Genres**: 
 *(#TITLE Genre)*
 
-**_Legend_**:
-*<!xxx/>*: *optional*    
-
+**_Legend_**:    
+*<!xxx/>*: *optional*
 *#TITLE*: *name (year) <!(info)/> <!{<!episodeName/><!{episodeNum}/>}/> <!{{SUSPENDED}}/>*     
 
 #### B. Data Filtering
@@ -62,31 +61,30 @@ Finally, we decided to manually filter the data by deciding some factors and thr
 
 **Code Description and Usage**:
 
-A. Removal of movies without rating data: tsv2csv.py     
+A. Removal of movies without rating data: **tsv2csv.py**    
 Usage: `python tsv2csv.py input.csv output.csv`
 
-B. Removal of TV series and video­games by removal of tags (TV), (VG), (V), {}: filter_VG_TV.py,filter_V.py,filter_bracket.py  
+B. Removal of TV series and video­games by removal of tags (TV), (VG), (V), {}: **filter_VG_TV.py,filter_V.py,filter_bracket.py**  
 Usage: `python filter_VG_TV.py input.csv output.csv`    
 Usage: `python filter_V.py input.csv output.csv`    
 Usage: `python filter_bracket.py input.csv output.csv`    
 
-C. Removal of movies released before 2000: filter_year_2000.py    
+C. Removal of movies released before 2000: **filter_year_2000.py**    
 Usage: `python filter_year_2000.py input.csv output.csv`    
 
-D. Removal of movies with number of votes<100: filter_number_of_votes.py    
-Usage: `python filter_number_of_votes.py input.csv output.csv   
+D. Removal of movies with number of votes < 100: **filter_number_of_votes.py**    
+Usage: `python filter_number_of_votes.py input.csv output.csv`   
 
-E. Finding distinct #Actors and #Actresses for filtered movies: distinct_actors.py, distinct_actresses.py    
+E. Finding distinct #Actors and #Actresses for filtered movies: **distinct_actors.py, distinct_actresses.py**    
 Usage: `python distinct_actors.py actors.csv output.csv`    
 Usage: `python distinct_actresses.py actresses.csv output.csv`    
 
-F. Removal of actors and actresses who acted in only one movie released before 2010: distinct_actors_2010.py, distinct_actresses_2010.py    
+F. Removal of actors and actresses who acted in only one movie released before 2010: **distinct_actors_2010.py, distinct_actresses_2010.py**   
 Usage: `python distinct_actors_2010.py actors.csv output.csv`    
 Usage: `python distinct_actresses_2010.py actresses.csv output.csv`    
 
-G. Removal of movies without any associated actors or actresses: find_union_movies.py
-Usage:`'python find_union_movies.py actors.csv actresses.csv`
+G. Removal of movies without any associated actors or actresses: **find_union_movies.py**    
+Usage:`'python find_union_movies.py actors.csv actresses.csv`    
 
-H. Filtering of directors for resultant movies: filter_directors.py
-Usage: `python filter_directors.py movies.csv directors.csv outputFile.csv`
-
+H. Filtering of directors for resultant movies: **filter_directors.py**    
+Usage: `python filter_directors.py movies.csv directors.csv outputFile.csv`    
