@@ -28,9 +28,10 @@ For this project, we used a subset of the IMDB database, which was provided for 
 *(#TITLE Genre)*
 
 **_Legend_**:
- <!xxx/>: optional
- #TITLE: 
+*<!xxx/>*: optional
+*#TITLE*: 
 name (year) <!(info)/> <!{<!episodeName/><!{episodeNum}/>}/> <!{{SUSPENDED}}/>
+
 
 #### B. Data Filtering
 The next step was to structure and filter the data properly as per the requirements of the project. The list files were used to generate structured CSV files for each of the entities. Each CSV file was obtained after multiple levels of filters applied using python scripts. The filters applied, and the data statistics obtained after each step are described below.
@@ -38,11 +39,11 @@ The next step was to structure and filter the data properly as per the requireme
 1. Converting list files to CSV files
 The list files were iterated and useful information was extracted to structure the data into CSV files as follows:
 
-Movies: (title,year,rating,votes)
-Actors: (first_name,last_name,movie_title)
-Actresses: (first_name,last_name,movie_title)
-Directors: (first_name,last_name,movie_title)
-Genres: (movie_title,genre)
+**Movies**: '(title,year,rating,votes)'
+**Actors**: '(first_name,last_name,movie_title)'
+**Actresses**: '(first_name,last_name,movie_title)'
+**Directors**: '(first_name,last_name,movie_title)'
+**Genres**: '(movie_title,genre)'
 
 2. Loading csv files into database
 
@@ -56,79 +57,41 @@ The data needed to be filtered in order to insert into the database so as to use
 
 Approach 3: Manual Filtering
 Finally, we decided to manually filter the data by deciding some factors and thresholds, and wrote scripts in Python to obtain the desired filtered data sets.
-The data was progressively filtered on the following levels. The scripts used for filtering are mentioned in parenthesis followed by the stats after each step:
 
-Initial Stats:
-Number of Movies: 3439882
-Number of Actors: 15643508
-Number of Actresses: 9395847
-Number of Directors:2273151
-
-Removal of movies without rating data (tsv2csv.py)
-Stats after filtering:
-Number of Movies: 645242
-                        
-Removal of TV series and video-games by removal of tags (TV), (VG), (V), {} (filter_VG_TV.py,filter_V.py,filter_bracket.py)
-Number of Movies: 321534
-Number of Actors: 4885618
-Number of Actresses: 2443331
-
-Removal of movies released before 2000 (filter_year_2000.py)
-Number of Movies: 158062
-
-Removal of movies with number of votes<100 (filter_number_of_votes.py)
-Number of Movies: 39735
-
-Finding distinct #Actors and #Actresses for filtered movies (distinct_actors.py, distinct_actresses.py)
-Number of Actors: 320797
-Number of Actresses: 180271
-
-Removal of actors and actresses who acted in only one movie released before 2010 (distinct_actors_2010.py, distinct_actresses_2010.py)
-Number of Actors: 86103
-Number of Actresses: 47143
-
-Removal of movies without any associated actors or actresses (find_union_movies.py)
-Number of Movies (with associated actors): 32120
-Number of Movies (with associated actresses): 32056
-Number of Movies (union of both): 32770
-
-Filtering of directors for resultant movies (filter_directors.py)
-Number of Directors (with associated movies): 36248 
-
-Code Description and Usage:
+**Code Description and Usage**:
 
 A. Removal of movies without rating data: tsv2csv.py
-Usage: python tsv2csv.py input.csv output.csv
+Usage: 'python tsv2csv.py input.csv output.csv'
 
 
 B. Removal of TV series and video­games by removal of tags (TV), (VG), (V), {}: filter_VG_TV.py,filter_V.py,filter_bracket.py
-Usage: python filter_VG_TV.py input.csv output.csv
-Usage: python filter_V.py input.csv output.csv
-Usage: python filter_bracket.py input.csv output.csv
+Usage: 'python filter_VG_TV.py input.csv output.csv'
+Usage: 'python filter_V.py input.csv output.csv'
+Usage: 'python filter_bracket.py input.csv output.csv'
 
 
 C. Removal of movies released before 2000: filter_year_2000.py
-Usage: python filter_year_2000.py input.csv output.csv
+Usage: 'python filter_year_2000.py input.csv output.csv'
 
 
 D. Removal of movies with number of votes<100: filter_number_of_votes.py
-Usage: python filter_number_of_votes.py input.csv output.csv
+Usage: 'python filter_number_of_votes.py input.csv output.csv'
 
 
 E. Finding distinct #Actors and #Actresses for filtered movies: distinct_actors.py, distinct_actresses.py
-Usage: python distinct_actors.py actors.csv output.csv
-Usage: python distinct_actresses.py actresses.csv output.csv
+Usage: 'python distinct_actors.py actors.csv output.csv'
+Usage: 'python distinct_actresses.py actresses.csv output.csv'
 
 
 F. Removal of actors and actresses who acted in only one movie released before 2010: distinct_actors_2010.py, distinct_actresses_2010.py
-Usage: python distinct_actors_2010.py actors.csv output.csv
-Usage: python distinct_actresses_2010.py actresses.csv output.csv
+Usage: 'python distinct_actors_2010.py actors.csv output.csv'
+Usage: 'python distinct_actresses_2010.py actresses.csv output.csv'
 
 
 G. Removal of movies without any associated actors or actresses: find_union_movies.py
-Usage: python find_union_movies.py actors.csv actresses.csv
+Usage: 'python find_union_movies.py actors.csv actresses.csv'
 
 
 H. Filtering of directors for resultant movies: filter_directors.py
-Usage: python filter_directors.py movies.csv directors.csv outputFile.csv
+Usage: 'python filter_directors.py movies.csv directors.csv outputFile.csv'
 
