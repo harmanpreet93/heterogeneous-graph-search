@@ -1,33 +1,38 @@
-# Heterogeneous Graph Search
+## Heterogeneous Graph Search
 
 In this project we aim to implement searching in a heterogeneous graph network. To achieve this, the implementation was divided into two phases. Phase 1 includes data extraction and filtering, and organisation of data in a graph based database. Phase 2 includes defining weights for adjacent nodes and edges depending upon various attributes so as to find the nodes “nearest” to each other with respect to the distance metric defined in this regard.
 
 
-## Phase 1. Data Extraction, Filtering and Organisation:
+### Phase 1. Data Extraction, Filtering and Organisation:
 
-### A. Data Extraction
+#### A. Data Extraction
 
-For this project, we used a subset of the IMDB database, which was provided for use at [http://ftp.fu-berlin.de/pub/misc/movies/database/](http://www.imdb.com/interfaces). The data was downloaded from the ftp server at [http://ftp.fu-berlin.de/pub/misc/movies/database/](http://ftp.fu-berlin.de/pub/misc/movies/database/) in the form of list files containing unstructured information about actors, directors, genres, movies. plots, cinematographers, etc. The list files for only actors, actresses, directors,  movies, movie-ratings, and genres were extracted, containing the following data format:
+For this project, we used a subset of the IMDB database, which was provided for use at [http://ftp.fu-berlin.de/pub/misc/movies/database/](http://www.imdb.com/interfaces). The data was downloaded in the form of list files containing unstructured information about actors, directors, genres, movies. plots, cinematographers, etc. The list files for only actors, actresses, directors,  movies, movie-ratings, and genres were extracted, containing the following data format:
 
 **Actors**:
 *(Lastname, Firstname #TITLE <!(detail)/> <!(detail)/> <![role]/> <!<billingPosition>/>)*
+
 **Actresses**:
 *(Lastname, Firstname #TITLE <!(detail)/> <!(detail)/> <![role]/> <!<billingPosition>/>)*
+
 **Directors**: 
 *(Lastname, Firstname #TITLE <!(detail)/>)*
+
 **Ratings**: 
 *(Dist.Num Votes Rank #TITLE)*
+
 **Movies**: 
 *(#TITLE Year)*
+
 **Genres**: 
 *(#TITLE Genre)*
 
-*Legend*:
+**_Legend_**:
  <!xxx/>: optional
  #TITLE: 
 name (year) <!(info)/> <!{<!episodeName/><!{episodeNum}/>}/> <!{{SUSPENDED}}/>
 
-### B. Data Filtering
+#### B. Data Filtering
 The next step was to structure and filter the data properly as per the requirements of the project. The list files were used to generate structured CSV files for each of the entities. Each CSV file was obtained after multiple levels of filters applied using python scripts. The filters applied, and the data statistics obtained after each step are described below.
 
 1. Converting list files to CSV files
@@ -54,41 +59,41 @@ Finally, we decided to manually filter the data by deciding some factors and thr
 The data was progressively filtered on the following levels. The scripts used for filtering are mentioned in parenthesis followed by the stats after each step:
 
 Initial Stats:
-#Movies: 3439882
-#Actors: 15643508
-#Actresses: 9395847
-#Directors:2273151
+Number of Movies: 3439882
+Number of Actors: 15643508
+Number of Actresses: 9395847
+Number of Directors:2273151
 
 Removal of movies without rating data (tsv2csv.py)
 Stats after filtering:
-#Movies: 645242
+Number of Movies: 645242
                         
 Removal of TV series and video-games by removal of tags (TV), (VG), (V), {} (filter_VG_TV.py,filter_V.py,filter_bracket.py)
-    #Movies: 321534
-#Actors: 4885618
-#Actresses: 2443331
+Number of Movies: 321534
+Number of Actors: 4885618
+Number of Actresses: 2443331
 
 Removal of movies released before 2000 (filter_year_2000.py)
-#Movies: 158062
+Number of Movies: 158062
 
 Removal of movies with number of votes<100 (filter_number_of_votes.py)
-#Movies: 39735
+Number of Movies: 39735
 
 Finding distinct #Actors and #Actresses for filtered movies (distinct_actors.py, distinct_actresses.py)
-    #Actors: 320797
-#Actresses: 180271
+Number of Actors: 320797
+Number of Actresses: 180271
 
 Removal of actors and actresses who acted in only one movie released before 2010 (distinct_actors_2010.py, distinct_actresses_2010.py)
-#Actors: 86103
-#Actresses: 47143
+Number of Actors: 86103
+Number of Actresses: 47143
 
 Removal of movies without any associated actors or actresses (find_union_movies.py)
-#Movies (with associated actors): 32120
-#Movies (with associated actresses): 32056
-#Movies (union of both): 32770
+Number of Movies (with associated actors): 32120
+Number of Movies (with associated actresses): 32056
+Number of Movies (union of both): 32770
 
 Filtering of directors for resultant movies (filter_directors.py)
-#Directors (with associated movies): 36248 
+Number of Directors (with associated movies): 36248 
 
 Code Description and Usage:
 
