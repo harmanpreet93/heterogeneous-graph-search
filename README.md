@@ -91,7 +91,7 @@ H. Filtering of directors for resultant movies: **filter_directors.py**
   
   
 #### Challenge faced: 
-##### Large computation times    
+##### Large computation time         
 In many of the above filtering operations, we needed to compare two files containing a large number of lines. With two such files containing m and n tuples each, the iterative comparison through brute force lead to a time complexity of **_O(m*n)_**. Since m and n were very large, this was highly inefficient, and the system was unable to handle the computation.    
 
 ##### Approach: Increased efficiency using Hashmaps and IO buffers     
@@ -99,7 +99,7 @@ To overcome the above challenge, we used alternative approaches. We iterated ove
 Another approach we chose is to store the input and output buffers instead of reading from and writing to files on the fly. This reduced intermittent IO time and helped increase efficiency. 
 
 **Result**      
-After applying the above progressive filters, we obtained the following stats:
+After applying the above progressive filters, we obtained the following stats:    
 Number of Movies: 32770     
 Number of Actors: 86103    
 Number of Actresses: 47143      
