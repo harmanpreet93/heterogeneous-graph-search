@@ -28,24 +28,23 @@ For this project, we used a subset of the IMDB database, which was provided for 
 *(#TITLE Genre)*
 
 **_Legend_**:
-*<!xxx/>*: optional
-*#TITLE*: 
-name (year) <!(info)/> <!{<!episodeName/><!{episodeNum}/>}/> <!{{SUSPENDED}}/>
+*<!xxx/>*: *optional*
+*#TITLE*: *name (year) <!(info)/> <!{<!episodeName/><!{episodeNum}/>}/> <!{{SUSPENDED}}/>*
 
 
 #### B. Data Filtering
 The next step was to structure and filter the data properly as per the requirements of the project. The list files were used to generate structured CSV files for each of the entities. Each CSV file was obtained after multiple levels of filters applied using python scripts. The filters applied, and the data statistics obtained after each step are described below.
 
-1. Converting list files to CSV files
+##### 1. Converting list files to CSV files
 The list files were iterated and useful information was extracted to structure the data into CSV files as follows:
 
-**Movies**: '(title,year,rating,votes)'
-**Actors**: '(first_name,last_name,movie_title)'
-**Actresses**: '(first_name,last_name,movie_title)'
-**Directors**: '(first_name,last_name,movie_title)'
-**Genres**: '(movie_title,genre)'
+  **Movies**: '(title,year,rating,votes)'.
+  **Actors**: '(first_name,last_name,movie_title)'.
+  **Actresses**: '(first_name,last_name,movie_title)'.
+  **Directors**: '(first_name,last_name,movie_title)'.
+  **Genres**: '(movie_title,genre)'.
 
-2. Loading csv files into database
+##### 2. Loading csv files into database
 
 Challenge faced: Large file sizes
 The output CSV files were very large in size and couldn’t be loaded into the Neo4j database using web interface. Each trial resulted in a database disconnection error because too much time went into loading these large files, leading to a timeout or memory error in most cases.
