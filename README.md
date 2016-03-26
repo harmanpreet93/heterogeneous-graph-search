@@ -28,8 +28,11 @@ For this project, we used a subset of the IMDB database, which was provided for 
 *(#TITLE Genre)*
 
 **_Legend_**:
-*<!xxx/>*: *optional*
-*#TITLE*: *name (year) <!(info)/> <!{<!episodeName/><!{episodeNum}/>}/> <!{{SUSPENDED}}/>*
+*<!xxx/>*: 
+*optional*
+
+*#TITLE*: 
+*name (year) <!(info)/> <!{<!episodeName/><!{episodeNum}/>}/> <!{{SUSPENDED}}/>*
 
 
 #### B. Data Filtering
@@ -38,11 +41,11 @@ The next step was to structure and filter the data properly as per the requireme
 ##### 1. Converting list files to CSV files
 The list files were iterated and useful information was extracted to structure the data into CSV files as follows:
 
-  **Movies**: '(title,year,rating,votes)'.
-  **Actors**: '(first_name,last_name,movie_title)'.
-  **Actresses**: '(first_name,last_name,movie_title)'.
-  **Directors**: '(first_name,last_name,movie_title)'.
-  **Genres**: '(movie_title,genre)'.
+  **Movies**: `(title,year,rating,votes)`
+  **Actors**: `(first_name,last_name,movie_title)`
+  **Actresses**: `(first_name,last_name,movie_title)`
+  **Directors**: `(first_name,last_name,movie_title)`
+  **Genres**: `(movie_title,genre)`
 
 ##### 2. Loading csv files into database
 
