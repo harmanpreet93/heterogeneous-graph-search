@@ -3,9 +3,9 @@
 In this project we aim to implement searching in a heterogeneous graph network. To achieve this, the implementation was divided into two phases. Phase 1 includes data extraction and filtering, and organisation of data in a graph based database. Phase 2 includes defining weights for adjacent nodes and edges depending upon various attributes so as to find the nodes “nearest” to each other with respect to the distance metric defined in this regard.
 
 
-### Phase 1. Data Extraction, Filtering and Organisation:
+## Phase 1. Data Extraction, Filtering and Organisation:
 
-#### A. Data Extraction
+### A. Data Extraction
 
 For this project, we used a subset of the IMDB database, which was provided for use at [http://ftp.fu-berlin.de/pub/misc/movies/database/](http://ftp.fu-berlin.de/pub/misc/movies/database/). The data was downloaded in the form of list files containing unstructured information about actors, directors, genres, movies. plots, cinematographers, etc. The list files for only actors, actresses, directors,  movies, movie-ratings, and genres were extracted, containing the following data format:
 
@@ -31,10 +31,10 @@ For this project, we used a subset of the IMDB database, which was provided for 
 *<!xxx/>*: *optional*    
 *#TITLE*: *name (year) <!(info)/> <!{<!episodeName/><!{episodeNum}/>}/> <!{{SUSPENDED}}/>*     
 
-#### B. Data Filtering
+### B. Data Filtering
 The next step was to structure and filter the data properly as per the requirements of the project. The list files were used to generate structured CSV files for each of the entities. Each CSV file was obtained after multiple levels of filters applied using python scripts. The filters applied, and the data statistics obtained after each step are described below.
 
-##### 1. Converting list files to CSV files
+#### 1. Converting list files to CSV files
 The list files were iterated and useful information was extracted to structure the data into CSV files as follows:
 
   **Movies**: `(title,year,rating,votes)`     
@@ -44,10 +44,10 @@ The list files were iterated and useful information was extracted to structure t
   **Genres**: `(movie_title,genre)`    
   
   
-##### 2. Loading csv files into database
+#### 2. Loading csv files into database
 
-##### Challenge faced:    
-##### **Large file sizes**   
+#### Challenge faced:    
+##### Large file sizes    
 The output CSV files were very large in size and couldn’t be loaded into the Neo4j database using web interface. Each trial resulted in a database disconnection error because too much time went into loading these large files, leading to a timeout or memory error in most cases.    
 
 ##### Approach 1: Splitting the data
@@ -88,3 +88,31 @@ G. Removal of movies without any associated actors or actresses: **find_union_mo
 
 H. Filtering of directors for resultant movies: **filter_directors.py**    
   Usage: `python filter_directors.py movies.csv directors.csv outputFile.csv`    
+  
+  
+#### Challenge faced: 
+##### Large computation times    
+In many of the above filtering operations, we needed to compare two files containing a large number of lines. With two such files containing m and n tuples each, the iterative comparison through brute force lead to a time complexity of **O(m*n)**. Since m and n were very large, this was highly inefficient, and the system was unable to handle the computation.    
+
+##### Approach: Increased efficiency using Hashmaps and IO buffers     
+To overcome the above challenge, we used alternative approaches. We iterated over the file containing m tuples and stored the m values in hashmaps. After that, the n tuples in the other file were iterated upon and matched with the values stored in the output. This reduced the problem to **O(m+n)**, greatly increasing the efficiency.      
+Another approach we chose is to store the input and output buffers instead of reading from and writing to files on the fly. This reduced intermittent IO time and helped increase efficiency. 
+
+**Result**
+After applying the above progressive filters, we obtained the following stats:
+Number of Movies: 32770
+Number of Actors: 86103
+Number of Actresses: 47143
+Number of Directors: 36248
+
+#### C. Data Organisation
+Finally, after filtering the data and structuring it into CSV files, the data was entered into a graph database, so as to visualize the entities and their relationships. The [http://neo4j.com/](Neo4j) database was used for this purpose. Data was entered with the help of the [http://neo4j.com/docs/stable/cypher-query-lang.html](Cypher Query Language) and  the [http://py2neo.org/2.0/](Py2neo-2.0) client library in the following steps:     
+  1. The *movies.csv* file was simply imported into the Neo4j database, creating a node per movie.
+  2. To import actors into the database, py2neo scripts were written so as to check for each actor-movie pair, whether the node (the entity) for the actor already exists in the database. If so, the existing node for the actor was linked to the paired movie with the help of an edge (the relationship). Else, a new node was formed for the actor and a relationship was formed with the existing paired movie.
+  3. Step-2 was repeated for *actresses*, *directors* and *movie-genres*.    
+
+As a result of the above steps, we obtained a heterogeneous graph representation of the filtered data in the Neo4j database, complete with nodes representing the movies, actors, actresses, directors, and movie genres, and edges representing their corresponding relationships.
+
+## Phase 2. Finding similar nodes
+In the representation obtained in the Neo4j database, given a node in the heterogeneous graph, the objective of Phase 2 is to find the closest match for the node among the other nodes. For this, we aim to define a distance metric for two nodes of the same type, for which we will take various factors into consideration, and assign weights to each of the factors. Based on this metric, we will create a ranking of the other nodes, to represent the similarity measure. This measure will serve as the basis for finding similar nodes in the heterogeneous graph.
+
