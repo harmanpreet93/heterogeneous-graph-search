@@ -98,7 +98,7 @@ In many of the above filtering operations, we needed to compare two files contai
 To overcome the above challenge, we used alternative approaches. We iterated over the file containing m tuples and stored the m values in hashmaps. After that, the n tuples in the other file were iterated upon and matched with the values stored in the output. This reduced the problem to **_O(m+n)_**, greatly increasing the efficiency.      
 Another approach we chose is to store the input and output buffers instead of reading from and writing to files on the fly. This reduced intermittent IO time and helped increase efficiency. 
 
-**Result**      
+**Results:**      
 After applying the above progressive filters, we obtained the following stats:    
 Number of Movies: 32770     
 Number of Actors: 86103    
@@ -106,7 +106,7 @@ Number of Actresses: 47143
 Number of Directors: 36248    
 
 #### C. Data Organisation
-Finally, after filtering the data and structuring it into CSV files, the data was entered into a graph database, so as to visualize the entities and their relationships. The [http://neo4j.com/](Neo4j) database was used for this purpose. Data was entered with the help of the [http://neo4j.com/docs/stable/cypher-query-lang.html](Cypher Query Language) and  the [http://py2neo.org/2.0/](Py2neo-2.0) client library in the following steps:     
+Finally, after filtering the data and structuring it into CSV files, the data was entered into a graph database, so as to visualize the entities and their relationships. The [Neo4j](http://neo4j.com/) database was used for this purpose. Data was entered with the help of the [Cypher Query Language](http://neo4j.com/docs/stable/cypher-query-lang.html) and  the [Py2neo-2.0](http://py2neo.org/2.0/) client library in the following steps:     
   1. The *movies.csv* file was simply imported into the Neo4j database, creating a node per movie.
   2. To import actors into the database, py2neo scripts were written so as to check for each actor-movie pair, whether the node (the entity) for the actor already exists in the database. If so, the existing node for the actor was linked to the paired movie with the help of an edge (the relationship). Else, a new node was formed for the actor and a relationship was formed with the existing paired movie.
   3. Step-2 was repeated for *actresses*, *directors* and *movie-genres*.    
