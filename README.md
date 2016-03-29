@@ -6,7 +6,7 @@ In this project we aim to implement searching in a heterogeneous graph network. 
 1. Always delete relationship first before deleting the nodes.
 
 ## Phase 1. Data Extraction, Filtering and Organisation:
-Refer [Phase-1](https://github.com/harmanpreet93/heterogeneous-graph-search/tree/master/phase_1) for Data Extraction and Filtration
+Refer [Phase-1](https://github.com/harmanpreet93/heterogeneous-graph-search/tree/master/phase_1) for Data Extraction and Filtration.
 
 ## Graph Data Upload
 After filtering the data and structuring it into CSV files, the data was entered into a graph database, so as to visualize the entities and their relationships. The [Neo4j](http://neo4j.com/) database was used for this purpose. Data was entered with the help of the [Cypher Query Language](http://neo4j.com/docs/stable/cypher-query-lang.html) and  the [Py2neo-2.0](http://py2neo.org/2.0/) client library in the following steps:     
