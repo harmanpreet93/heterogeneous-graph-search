@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Heterogeneous-graph-search by harmanpreet93</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Heterogeneous-graph-search</h1>
+      <h2 class="project-tagline">Finding similar items in a heterogeneous graph</h2>
+      <a href="https://github.com/harmanpreet93/heterogeneous-graph-search" class="btn">View on GitHub</a>
+      <a href="https://github.com/harmanpreet93/heterogeneous-graph-search/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/harmanpreet93/heterogeneous-graph-search/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h2>
+<a id="heterogeneous-graph-search" class="anchor" href="#heterogeneous-graph-search" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Heterogeneous Graph Search</h2>
+
+<p>In this project we aim to implement searching in a heterogeneous graph network. To achieve this, the implementation was divided into two phases. Phase 1 includes data extraction and filtering, and organisation of data in a graph based database. Phase 2 includes defining weights for adjacent nodes and edges depending upon various attributes so as to find the nodes “nearest” to each other with respect to the distance metric defined in this regard.</p>
+
+<h2>
+<a id="note" class="anchor" href="#note" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Note:</h2>
+
+<ol>
+<li>Always delete relationship first before deleting the nodes.</li>
+</ol>
+
+<h2>
+<a id="phase-1-data-extraction-filtering-and-organisation" class="anchor" href="#phase-1-data-extraction-filtering-and-organisation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Phase 1. Data Extraction, Filtering and Organisation:</h2>
+
+<p>Refer <a href="https://github.com/harmanpreet93/heterogeneous-graph-search/tree/master/phase_1">Phase-1</a> for Data Extraction and Filtration</p>
+
+<h2>
+<a id="graph-data-upload" class="anchor" href="#graph-data-upload" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Graph Data Upload</h2>
+
+<p>After filtering the data and structuring it into CSV files, the data was entered into a graph database, so as to visualize the entities and their relationships. The <a href="http://neo4j.com/">Neo4j</a> database was used for this purpose. Data was entered with the help of the <a href="http://neo4j.com/docs/stable/cypher-query-lang.html">Cypher Query Language</a> and  the <a href="http://py2neo.org/2.0/">Py2neo-2.0</a> client library in the following steps:     </p>
+
+<ol>
+<li>The <em>movies.csv</em> file was simply imported into the Neo4j database, creating a node per movie.</li>
+<li>To import actors into the database, py2neo scripts were written so as to check for each actor-movie pair, whether the node (the entity) for the actor already exists in the database. If so, the existing node for the actor was linked to the paired movie with the help of an edge (the relationship). Else, a new node was formed for the actor and a relationship was formed with the existing paired movie.</li>
+<li>Step-2 was repeated for <em>actresses</em>, <em>directors</em> and <em>movie-genres</em>.<br>
+</li>
+</ol>
+
+<p>As a result of the above steps, we obtained a heterogeneous graph representation of the filtered data in the Neo4j database, complete with nodes representing the movies, actors, actresses, directors, and movie genres, and edges representing their corresponding relationships.</p>
+
+<h2>
+<a id="phase-2-finding-similar-nodes" class="anchor" href="#phase-2-finding-similar-nodes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Phase 2. Finding similar nodes</h2>
+
+<p>In the representation obtained in the Neo4j database, given a node in the heterogeneous graph, the objective of Phase 2 is to find the closest match for the node among the other nodes. For this, we aim to define a distance metric for two nodes of the same type, for which we will take various factors into consideration, and assign weights to each of the factors. Based on this metric, we will create a ranking of the other nodes, to represent the similarity measure. This measure will serve as the basis for finding similar nodes in the heterogeneous graph.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/harmanpreet93/heterogeneous-graph-search">Heterogeneous-graph-search</a> is maintained by <a href="https://github.com/harmanpreet93">harmanpreet93</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
