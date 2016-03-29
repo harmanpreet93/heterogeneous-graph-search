@@ -1,4 +1,4 @@
-# Phase 1. Data Extraction, Filtering and Organisation:
+## Phase 1. Data Extraction, Filtering and Organisation:
 
 ## A. Data Extraction
 
