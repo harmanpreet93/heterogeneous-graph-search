@@ -20,6 +20,20 @@ def create_directors_only_file(input_file,output_file):
 	output_file.close()
 	input_file.close()
 
+# create file containing <director,movie> (jut combining the firstname and lastname into one column)
+def create_directors_file_with_full_name_as_first_column(input_file,output_file):
+	print "Please wait, it may take few seconds..."
+	lines = input_file.readlines()
+
+	for line in lines:
+		arr = line.split(',')
+		director = arr[0].lstrip().rstrip() + ' ' + arr[1].lstrip().rstrip() + ','
+		movie = arr[2].lstrip().rstrip() + '\n'
+		output_file.write(director+movie)
+
+	output_file.close()
+	input_file.close()
+
 def create_directors_hashmap(input_file):
 	directors_hashmap = {}
 	print "Please wait, it may take few seconds to create directors_hashmap..."
@@ -66,6 +80,8 @@ if __name__ == '__main__':
 	
 	# create_directors_only_file(directors_file,modified_file)
 
-	directors_hashmap = create_directors_hashmap(directors_file)
+	# directors_hashmap = create_directors_hashmap(directors_file)
 
-	create_modified_directors_file(directors_hashmap,modified_file)
+	# create_modified_directors_file(directors_hashmap,modified_file)
+
+	create_directors_file_with_full_name_as_first_column(directors_file,modified_file)

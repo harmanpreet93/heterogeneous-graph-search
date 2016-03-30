@@ -33,64 +33,37 @@ def connect_graph():
 	print 'graph connected'
 	return graph
 
-# # create actor node 
-# def create_actor_node(graph,label,actor_name):
-# 	# first check if node already exists
-# 	for node in graph.find(label,'name',actor_name):
-# 		for rel in graph.match(start_node=node,bidirectional=True):
-# 			graph.delete(rel)
-# 		graph.delete(node)
-	
-# 	node = Node(label,name=actor_name)
-# 	# graph.create returns tuple of nodes 
-# 	return graph.create(node)
-
-# delete all nodes of particular label with no relationships
-def delete_label(graph,label):
-	print "deleting nodes with label ", label
-	for node in graph.find(label):
-		graph.delete(node)
-
-# delete all relationships for particular type
-def delete_relationships(graph,relationship_type):
-	for rel in graph.match(rel_type=relationship_type):
-		graph.delete(rel)
-
-# delete selected nodes with no relationships attached 
-def delete_selected_nodes(graph,label,property_key,property_value):
-	for node in graph.find(label,property_key,property_value):
-		graph.delete(node)
-
 # create actor node 
 def create_actor_node(graph,label,actor_name):
 	return graph.merge_one(label,'name',actor_name)
 
 def create_relationship(graph,node,movie_name):
 	for movie in graph.find('movie','title',movie_name):
-		# print 'movie found in graph db: ',movie
 		acted_in = Relationship(node,"ACTED_IN",movie)
 		graph.create_unique(acted_in)
 		break
 
-# creates actresses node, then create relationships between actresses and movies she acted in
-def upload_actresses_data(graph):
-	# actors_file = open(path/to/modified_actresses.txt,'r') 
+# creates actors node, then create relationships between actors and movies he acted in
+def upload_actors_data(graph):
+	# actors_file = open(path/to/modified_actors.txt,'r') 
 	if len(sys.argv) < 2:
-		sys.exit("Usage: python file_name.py actresses.csv")
+		sys.exit("Usage: python file_name.py actors.csv")
 
 	actors_file = open(sys.argv[1],'r')
 	print "Please wait, it may take some time to create relationships..."
 	actors = actors_file.read().splitlines()
-
-	for line in actors[29235:]:
+	count = 2810
+	for line in actors[2811:]:
 		arr = line.split(',')
-		node = create_actor_node(graph,'actresses',arr[0])
+		count += 1
+		print count
+		node = create_actor_node(graph,'actor',arr[0])
 		for x in range(1,len(arr)):	
 			create_relationship(graph,node,arr[x])
 	actors_file.close()
 
 if __name__ == '__main__':
 	graph = connect_graph()
-	upload_actresses_data(graph)
+	upload_actors_data(graph)
 
 

@@ -12,3 +12,6 @@
 
 ### Get all the movies that an actor ACTED_IN
 `MATCH (a:actor {name:'Brad Pitt'})-[r:ACTED_IN]->(m:movie) RETURN r`
+
+#### Get all incoming nodes to the movie
+`MATCH (m:movie {title:'A Good Year (2006)'})<-[r]-()RETURN r`
