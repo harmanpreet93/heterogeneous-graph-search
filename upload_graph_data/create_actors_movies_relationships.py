@@ -70,14 +70,17 @@ def create_relationship(graph,node,movie_name):
 
 # creates actors node, then create relationships between actor and movies he acted in
 def upload_actors_data(graph):
-	# actors_file = open(path/to/modified_actors.txt,'r')
+	# actors_file = open(path/to/modified_actors.txt,'r') 
+	if len(sys.argv) < 2:
+		sys.exit("Usage: python fileName.py actors.txt")
+
 	actors_file = open(sys.argv[1],'r')
 	print "Please wait, it may take some time..."
 	actors = actors_file.read().splitlines()
 
 	for line in actors:
 		arr = line.split(',')
-		node = create_actor_node(graph,'actor',arr[0])
+		node = create_actor_node(graph,'actresses',arr[0])
 		for x in range(1,len(arr)):
 			create_relationship(graph,node[0],arr[x])
 

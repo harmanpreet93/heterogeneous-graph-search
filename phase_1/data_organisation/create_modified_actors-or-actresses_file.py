@@ -19,7 +19,7 @@ def createHashmap(inputFile,outputFile):
 		movies += arr[2][2:-1].lstrip().rstrip() + ','
 		for x in range(3,len(arr)-1):
 			movies += arr[x][2:-1].lstrip().rstrip() + ','
-		last_movie = arr[-1][1:-3].lstrip().rstrip() + '\n'
+		last_movie = arr[-1][2:-3].lstrip().rstrip() + '\n'
 		movies += last_movie
 		# print actor+movies
 		outputFile.write(actor+movies)
