@@ -52,11 +52,8 @@ def upload_actors_data(graph):
 	actors_file = open(sys.argv[1],'r')
 	print "Please wait, it may take some time to create relationships..."
 	actors = actors_file.read().splitlines()
-	count = 2810
-	for line in actors[2811:]:
+	for line in actors:
 		arr = line.split(',')
-		count += 1
-		print count
 		node = create_actor_node(graph,'actor',arr[0])
 		for x in range(1,len(arr)):	
 			create_relationship(graph,node,arr[x])
