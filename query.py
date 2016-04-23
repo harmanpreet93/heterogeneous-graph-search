@@ -52,7 +52,7 @@ if __name__ == '__main__':
 	xx = execute_query(query_xx)
 	
 	for result in xx:
-		xx_value = result.count
+		xx_value = int(result.count)
 		break
 
 	query_xy = "MATCH (a:actor {name:'"+str(actor_input)+"'})-[r1:ACTED_IN]->(m1:movie)<-[r2:ACTED_IN]-(b:actor) RETURN b as actor,count(b.name) as count"
@@ -72,8 +72,8 @@ if __name__ == '__main__':
 	# print hashmap
 
 	for key in hashmap:
-		xy_value = hashmap[key][0]
-		yy_value = hashmap[key][1]
+		xy_value = int(hashmap[key][0])
+		yy_value = int(hashmap[key][1])
 		score = 2 * xy_value / (xx_value+yy_value)
 		hashmap[key].append(score)
 
