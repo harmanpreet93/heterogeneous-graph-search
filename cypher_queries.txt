@@ -28,7 +28,7 @@ RETURN b,count(b.name) ORDER BY count(b.name) DESC LIMIT 200
 
 *******************************************************************************
 Answer AMA:  xx count
-MATCH (a:actor {name:'Brad Pitt'})-[ACTED_IN]->(m)
+MATCH (a:actor {name:'Brad Pitt'})-[ACTED_IN]->(m) 
 MATCH (m)<-[r:ACTED_IN]-(a) 
 RETURN a,count(a.name) ORDER BY count(a.name)
 *******************************************************************************
