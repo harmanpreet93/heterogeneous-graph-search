@@ -45,7 +45,6 @@ def upload_genres_data(graph):
 		arr = line.split(',')
 		node = create_genre_node(graph,'genre',arr[1])
 		create_movie_genre_relationship(graph,node,arr[0])
-		print arr[0]
 		
 	genre_file.close()
 

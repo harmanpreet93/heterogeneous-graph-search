@@ -72,9 +72,13 @@ if __name__ == '__main__':
 		score = (2*xy_value)/float((xx_value+yy_value))
 		value.append(score)
 
-	sorted_hashmap = sorted(hashmap.items(), key=lambda e: e[1][2])
+	sorted_hashmap = sorted(hashmap.items(), key=lambda e: e[1][2], reverse=True)
 
-	for i in range(len(sorted_hashmap)-1,len(sorted_hashmap)-top_K-1,-1):
+	# for i in range(len(sorted_hashmap)-1,len(sorted_hashmap)-top_K-1,-1):
+		# print sorted_hashmap[i][0],sorted_hashmap[i][1][2]
+
+
+	for i in range(0,top_K,1):
 		print sorted_hashmap[i][0],sorted_hashmap[i][1][2]
 
 	for i in sorted_hashmap:
