@@ -1,6 +1,14 @@
 
 # return actor node and his movies
+ 
 
+================================================================================= 
+// What is related, and how
+MATCH (a)-[r]->(b)
+WHERE labels(a) <> [] AND labels(b) <> []
+RETURN DISTINCT head(labels(a)) AS This, type(r) as To, head(labels(b)) AS That
+LIMIT 10
+================================================================================= 
 
 
 /********
@@ -15,9 +23,9 @@ RETURN a,b,count(b.name) ORDER by count(b.name) DESC LIMIT 30
 
 *******************************************************************************
 answer AMAMA: xy count
-MATCH p=(a:actor {name:'Brad Pitt'})-[r1:ACTED_IN]->(m1:movie)<-[r2:ACTED_IN]-(c:actor)
+MATCH (a:actor {name:'Brad Pitt'})-[r1:ACTED_IN]->(m1:movie)<-[r2:ACTED_IN]-(c:actor)
 -[r3:ACTED_IN]->(m2:movie)<-[r4:ACTED_IN]-(b:actor)
-RETURN b,count(b.name) ORDER BY count(b.name) DESC LIMIT 200
+RETURN b,count(b.name) ORDER BY count(b.name) DESC LIMIT 20
 *******************************************************************************
 
 *******************************************************************************
@@ -101,3 +109,29 @@ MATCH (a:actor {name:'Brad Pitt'})-[ACTED_IN]->(m)
 MATCH (m)<-[r:ACTED_IN]-(a) 
 RETURN a,m,r
 ********************************************************************
+
+
+tesing 27 april
+MATCH (a:actor {name:'Hitanshu Arora'})-[r1:ACTED_IN]->(m:movie) 
+MATCH (m)<-[r2:ACTED_IN]-(a)-[r3:ACTED_IN]->(m2:movie) 
+RETURN a,m,m2
+
+AMAMA - xy
+MATCH (a:actor {name:'Hitanshu Arora'})-[r1:ACTED_IN]->(m:movie) 
+MATCH (m)<-[r2:ACTED_IN]-(a1:actor)
+MATCH (a1)-[r3:ACTED_IN]->(m2:movie)
+MATCH (m2)<-[r4:ACTED_IN]-(a2:actor)
+WHERE a2.name <> 'Hitanshu Arora'
+return a2, count(a2.name) ORDER BY count(a2.name) DESC
+
+AMAMA - yy
+MATCH (a:actor {name:'Hitanshu Arora'})-[r1:ACTED_IN]->(m:movie) 
+MATCH (m)<-[r2:ACTED_IN]-(a1:actor)
+MATCH (a1)-[r3:ACTED_IN]->(m2:movie)
+MATCH (m2)<-[r4:ACTED_IN]-(a2:actor)
+WHERE a2.name <> 'Hitanshu Arora'
+MATCH (a2:actor)-[r5:ACTED_IN]->(m3:movie)
+MATCH (m3)<-[r6:ACTED_IN]-(a3:actor)
+MATCH (a3)-[r7:ACTED_IN]->(m4:movie)
+MATCH (m4)<-[r8:ACTED_IN]-(a2)
+return a2,count(a2.name) ORDER BY count(a2.name) DESC
