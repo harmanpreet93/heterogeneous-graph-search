@@ -41,8 +41,8 @@ if __name__ == '__main__':
 
 	graph = connect_graph()
 	query_xx = "MATCH (a:director {name:'"+director_input+"'})-[r1:DIRECTED]->(m:movie) \
-				MATCH (m)<-[r2:DIRECTED]-(a1:director) \
-				MATCH (a1)-[r3:DIRECTED]->(m2:movie) \
+				MATCH (m)<-[r2:ACTED_IN]-(a1:actor) \
+				MATCH (a1)-[r3:ACTED_IN]->(m2:movie) \
 				MATCH (m2)<-[r4:DIRECTED]-(a) \
 				RETURN a as director, count(a.name) as count" 
 	xx = execute_query(query_xx)
@@ -56,8 +56,8 @@ if __name__ == '__main__':
 	print "xx: ",xx_value
 
 	query_xy = "MATCH (a:director {name:'"+director_input+"'})-[r1:DIRECTED]->(m:movie) \
-				MATCH (m)<-[r2:DIRECTED]-(a1:director) \
-				MATCH (a1)-[r3:DIRECTED]->(m2:movie) \
+				MATCH (m)<-[r2:ACTED_IN]-(a1:actor) \
+				MATCH (a1)-[r3:ACTED_IN]->(m2:movie) \
 				MATCH (m2)<-[r4:DIRECTED]-(a2:director) \
 				WHERE a2.name <> '"+director_input+"' \
 				RETURN a2 as director, count(a2.name) as count"
@@ -70,13 +70,13 @@ if __name__ == '__main__':
 		hashmap[result.director['name']].append(result.count)
 
 	query_yy = "MATCH (a:director {name:'"+director_input+"'})-[r1:DIRECTED]->(m:movie) \
-				MATCH (m)<-[r2:DIRECTED]-(a1:director) \
-				MATCH (a1)-[r3:DIRECTED]->(m2:movie) \
+				MATCH (m)<-[r2:ACTED_IN]-(a1:actor) \
+				MATCH (a1)-[r3:ACTED_IN]->(m2:movie) \
 				MATCH (m2)<-[r4:DIRECTED]-(a2:director) \
 				WHERE a2.name <> '"+director_input+"' \
 				MATCH (a2:director)-[r5:DIRECTED]->(m3:movie) \
-				MATCH (m3)<-[r6:DIRECTED]-(a3:director) \
-				MATCH (a3)-[r7:DIRECTED]->(m4:movie) \
+				MATCH (m3)<-[r6:ACTED_IN]-(a3:actor) \
+				MATCH (a3)-[r7:ACTED_IN]->(m4:movie) \
 				MATCH (m4)<-[r8:DIRECTED]-(a2) \
 				RETURN a2 as director,count(a2.name) as count"
 	yy = execute_query(query_yy)
@@ -84,7 +84,7 @@ if __name__ == '__main__':
 	for result in yy:
 		hashmap[result.director['name']].append(result.count)
 
-	output_file = open("../../sample_outputs/length_5/" +director_input+"_output_DMDMD.txt", "w")
+	output_file = open("../../sample_outputs/length_5/" +director_input+"_output_DMAMD.txt", "w")
 
 	for key, value in hashmap.iteritems():
 		xy_value = int(value[0])

@@ -84,7 +84,7 @@ if __name__ == '__main__':
 	for result in yy:
 		hashmap[result.actresses['name']].append(result.count)
 
-	output_file = open("../../sample_outputs/length_5/" +actresses_input+"_output_AMAMA.txt", "w")
+	output_file = open("../../sample_outputs/length_5/" +actresses_input+"_output_AxMAxMAx.txt", "w")
 
 	for key, value in hashmap.iteritems():
 		xy_value = int(value[0])
@@ -94,7 +94,7 @@ if __name__ == '__main__':
 
 	sorted_hashmap = sorted(hashmap.items(), key=lambda e: e[1][2], reverse=True)
 
-	for i in range(0,top_K,1):
+	for i in range(0,min(len(sorted_hashmap),top_K),1):
 		print sorted_hashmap[i][0],sorted_hashmap[i][1][2]
 
 	for i in sorted_hashmap:

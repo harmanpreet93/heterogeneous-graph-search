@@ -38,7 +38,9 @@ if __name__ == '__main__':
 
 
 	graph = connect_graph()
-	query_xx = "MATCH (a:actor {name:'"+str(actor_input)+"'})-[ACTED_IN]->(m) MATCH (m)<-[r:ACTED_IN]-(a) RETURN a as actor,count(a.name) as count"
+	query_xx = "MATCH (a:actor {name:'"+str(actor_input)+"'})-[ACTED_IN]->(m) \
+	MATCH (m)<-[r:ACTED_IN]-(a) \
+	RETURN a as actor,count(a.name) as count"
 	xx = execute_query(query_xx)
 	
 	if len(xx) == 0:
@@ -49,7 +51,8 @@ if __name__ == '__main__':
 			break
 	print "xx: ",xx_value
 
-	query_xy = "MATCH (a:actor {name:'"+str(actor_input)+"'})-[r1:ACTED_IN]->(m1:movie)<-[r2:ACTED_IN]-(b:actor) RETURN b as actor,count(b.name) as count"
+	query_xy = "MATCH (a:actor {name:'"+str(actor_input)+"'})-[r1:ACTED_IN]->(m1:movie)<-[r2:ACTED_IN]-(b:actor) \
+	RETURN b as actor,count(b.name) as count"
 	xy = execute_query(query_xy)
 
 	hashmap = {}
@@ -57,7 +60,10 @@ if __name__ == '__main__':
 		hashmap.setdefault(result.actor['name'],[]) 
 		hashmap[result.actor['name']].append(result.count)
 
-	query_yy = "MATCH (a:actor {name:'"+str(actor_input)+"'})-[r1:ACTED_IN]->(m1:movie)<-[r2:ACTED_IN]-(b:actor) MATCH (b)-[r3:ACTED_IN]->(m) MATCH (m)<-[r4:ACTED_IN]-(b) RETURN b as actor,count(b.name) as count"
+	query_yy = "MATCH (a:actor {name:'"+str(actor_input)+"'})-[r1:ACTED_IN]->(m1:movie)<-[r2:ACTED_IN]-(b:actor) \
+	MATCH (b)-[r3:ACTED_IN]->(m) \
+	MATCH (m)<-[r4:ACTED_IN]-(b) \
+	RETURN b as actor,count(b.name) as count"
 	yy = execute_query(query_yy)
 
 	for result in yy:
