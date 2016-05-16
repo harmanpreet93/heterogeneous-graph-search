@@ -1,5 +1,0 @@
-(u'Jennifer (I) Decker', [1, 5, 0.3333333333333333])
-(u'Katrin Sa\xdf', [1, 8, 0.2222222222222222])
-(u'Lavinia Wilson', [1, 8, 0.2222222222222222])
-(u'Catherine H. Flemming', [1, 9, 0.2])
-(u'Anna (I) Br\xfcggemann', [1, 14, 0.13333333333333333])
